@@ -23,6 +23,7 @@
   with_items:
   - openvas
   - bzip2
+  - "texlive-latex-*"
 
 
 - name: Enable redis
@@ -37,4 +38,4 @@
   - greenbone-nvt-sync
   - greenbone-certdata-sync
   - greenbone-scapdata-sync
-  notify: rebulid db
+  notify: rebuild db
