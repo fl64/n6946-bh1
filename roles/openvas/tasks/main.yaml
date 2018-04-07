@@ -1,22 +1,29 @@
 ---
 - name: Disable firewalld
-  systemd: 
-    name: firewalld 
-    state: stopped 
+  systemd:
+    name: firewalld
+    state: stopped
     enabled: false
 
 - name: Disable selinux
   selinux: state=disabled
 
 - name: Install packets
-  yum: 
+  yum:
     name: "{{ item }}"
     state: present
   with_items:
   - https://www.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/atomic-release-1.0-21.el7.art.noarch.rpm
   - "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+
+- name: Install packets
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
   - openvas
   - bzip2
+
 
 - name: Enable redis
   systemd:
@@ -29,4 +36,5 @@
   with_items:
   - greenbone-nvt-sync
   - greenbone-certdata-sync
-  - greenbone-scapdata-sync  
+  - greenbone-scapdata-sync
+  notify: rebulid db
